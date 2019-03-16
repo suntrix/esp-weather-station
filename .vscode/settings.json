@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.osx": {
+        "PATH": "/Users/suntrix/.platformio/penv/bin:/Users/suntrix/.platformio/penv:/Users/suntrix/.rvm/gems/ruby-2.4.1/bin:/Users/suntrix/.rvm/gems/ruby-2.4.1@global/bin:/Users/suntrix/.rvm/rubies/ruby-2.4.1/bin:/usr/local/opt/node@8/bin:/usr/local/opt/libpq/bin:/Users/suntrix/Library/Android/sdk//build-tools/28.0.3:/Users/suntrix/Library/Android/sdk//platform-tools:/Users/suntrix/Library/Android/sdk//ndk-bundle:/usr/local/sbin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/opt/X11/bin:/Applications/Server.app/Contents/ServerRoot/usr/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/suntrix/.rvm/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}
