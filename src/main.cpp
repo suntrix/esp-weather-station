@@ -1,11 +1,5 @@
-#define EASYESP_SERIAL_BAUD 76800
-#define EASYESP_SERIAL_TIMEOUT 1e3      // 1 second
-
-#define EASYESP_STATUS_LED_FLASH_ENABLED 1
-
-#define EASYESP_WATCHDOG_SETUP_TIMEOUT 15e3     // 15 seconds
-// #define EASYESP_WATCHDOG_LOOP_TIMEOUT 10e3      // 10 seconds
-#define EASYESP_WATCHDOG_DEEP_SLEEP 60e3        // 60 seconds
+// #define EASYESP_STATUS_LED_FLASH_ENABLED 1
+// #define EASYESP_WATCHDOG_SETUP_TIMEOUT 15e3
 
 #include "secrets.h"
 
@@ -18,9 +12,29 @@
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 
-EasyESP::Framework framework;
+EasyESP::Config config = {
+    .ssid = SECRETS_WIFI_SSID,
+    .password = SECRETS_WIFI_PASSWORD,
+    .otaHttpsUrl = SECRETS_OTA_SERVER_HTTPS_URL,
+    .otaHttpsFingerPrint = SECRETS_OTA_SERVER_FINGERPRINT,
+    .otaHttpUrl = SECRETS_OTA_SERVER_HTTP_URL,
+    .versionName = "2.0.1"
+};
 
-BME280I2C_BRZO bme;
+EasyESP::Framework framework(config);
+
+BME280I2C_BRZO::Settings settings(
+   BME280::OSR_X1,
+   BME280::OSR_X1,
+   BME280::OSR_X1,
+   BME280::Mode_Forced,
+   BME280::StandbyTime_1000ms,
+   BME280::Filter_Off,
+   BME280::SpiEnable_False,
+   BME280I2C::I2CAddr_0x76
+);
+
+BME280I2C_BRZO bme(settings);
 
 struct SensorData {
     float temperature;
@@ -123,7 +137,7 @@ void setupCallback(EasyESP::Watchdog *watchdog, EasyESP::StatusLED *statusLED) {
 
     Serial.println(String("Payload: ") + payload);
 
-    http.begin(DATA_API_URL);
+    http.begin(SECRETS_DATA_API_URL);
     http.addHeader("Content-Type", "application/json");
  
     int httpCode = http.POST(payload);
